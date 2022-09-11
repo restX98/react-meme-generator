@@ -1,12 +1,21 @@
-import Header from "./components/Header";
-import Meme from "./components/Meme";
+import React from "react";
 import "./App.css";
 
 function App() {
+  const [things, setThings] = React.useState(["Thing 1", "Thing 2"]);
+
+  function addThingHandle(e) {
+    e.preventDefault();
+    setThings((prevState) => [...prevState, "Thing " + (things.length + 1)]);
+    console.log(things);
+  }
+
+  const thingsElement = things.map((thing) => <p key={thing}>{thing}</p>);
+
   return (
-    <div className="App">
-      <Header />
-      <Meme />
+    <div>
+      <button onClick={addThingHandle}>Add Item</button>
+      {thingsElement}
     </div>
   );
 }

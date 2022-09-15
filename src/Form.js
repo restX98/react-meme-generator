@@ -7,8 +7,9 @@ function Form() {
     email: "",
     comment: "",
     isPublic: false,
+    employment: "",
+    favColor: "",
   });
-  console.log(formData);
 
   function handleChange(e) {
     const { name, value, type, checked } = e.target;
@@ -19,8 +20,13 @@ function Form() {
     }));
   }
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(formData);
+  }
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         placeholder="First Name"
@@ -56,6 +62,57 @@ function Form() {
         checked={formData.isPublic}
       />
       <label htmlFor="isPublic">Is public?</label>{" "}
+      <fieldset>
+        <legend>Employment Status</legend>
+        <input
+          type="radio"
+          name="employment"
+          id="unemployed"
+          onChange={handleChange}
+          value="unemployed"
+          checked={formData.employment === "unemployed"}
+        />
+        <label htmlFor="unemployed">Unemployed</label>
+        <br />
+        <input
+          type="radio"
+          name="employment"
+          id="part-time"
+          onChange={handleChange}
+          value="part-time"
+          checked={formData.employment === "part-time"}
+        />
+        <label htmlFor="part-time">Part-Time</label>
+        <br />
+        <input
+          type="radio"
+          name="employment"
+          id="full-time"
+          onChange={handleChange}
+          value="full-time"
+          checked={formData.employment === "full-time"}
+        />
+        <label htmlFor="full-time">Full-Time</label>
+      </fieldset>
+      <label htmlFor="favColor">What is your favorite color?</label>
+      <br />
+      <select
+        id="favColor"
+        value={formData.favColor}
+        onChange={handleChange}
+        name="favColor"
+      >
+        <option value="">-- Choose --</option>
+        <option value="red">Red</option>
+        <option value="orange">Orange</option>
+        <option value="yellow">Yellow</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+        <option value="indigo">Indigo</option>
+        <option value="violet">Violet</option>
+      </select>
+      <br />
+      <button>Submit</button>
     </form>
   );
 }

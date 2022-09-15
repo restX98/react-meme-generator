@@ -4,7 +4,7 @@ import "./Meme.css";
 
 function Meme() {
   const [allMemeImages] = useState(memesData);
-  const [meme, setMemeImage] = useState({
+  const [meme, setMeme] = useState({
     topText: "",
     bottomText: "",
     randomImage: "",
@@ -13,10 +13,18 @@ function Meme() {
   function getMemeImage(e) {
     e.preventDefault();
     const memesArray = allMemeImages.data.memes;
-    setMemeImage((prevMeme) => ({
+    setMeme((prevMeme) => ({
       ...prevMeme,
       randomImage:
         memesArray[Math.floor(Math.random() * memesArray.length)].url,
+    }));
+  }
+
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setMeme((prevMeme) => ({
+      ...prevMeme,
+      [name]: value,
     }));
   }
 
@@ -24,16 +32,18 @@ function Meme() {
     <main>
       <form className="MemeForm">
         <input
-          className="first-text"
-          name="first-text"
+          className="top-text"
+          name="topText"
           type="text"
           placeholder="Top Text"
+          onChange={handleChange}
         />
         <input
-          className="second-text"
-          name="second-text"
+          className="bottom-text"
+          name="bottomText"
           type="text"
           placeholder="Bottom Text"
+          onChange={handleChange}
         />
         <input
           onClick={getMemeImage}
@@ -42,9 +52,13 @@ function Meme() {
           value="Get a new meme image"
         />
       </form>
-      <div className="meme-container">
-        {meme.randomImage && <img src={meme.randomImage} alt="Meme" />}
-      </div>
+      {meme.randomImage && (
+        <div className="meme-container">
+          <img src={meme.randomImage} alt="Meme" />
+          <h2 className="text top">{meme.topText}</h2>
+          <h2 className="text bottom">{meme.bottomText}</h2>
+        </div>
+      )}
     </main>
   );
 }

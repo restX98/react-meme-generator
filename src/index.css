@@ -9,6 +9,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
   font-size: 16px;
   font-weight: 300;
+  background-color: #FF7C43;
+  color: white;
+  padding: 2rem;
 }
 
 code {
